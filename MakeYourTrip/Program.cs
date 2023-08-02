@@ -42,6 +42,7 @@ builder.Services.AddScoped<IVehicleBookingService, VehicleBookingService>();
 builder.Services.AddScoped<ICrud<VehicleBooking, IdDTO>, VehicleBookingRepo>();
 builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
 builder.Services.AddScoped<ICrud<RoomBooking, IdDTO>, RoomBookingRepo>();
+  
 
 
 
