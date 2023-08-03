@@ -128,5 +128,19 @@ namespace MakeYourTrip.Controllers
                 return null;
            
         }
+
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpGet]
+
+        public async Task<ActionResult<List<User>?>> GetUnApprovedAgent()
+        {
+            var newagent = await _userService.GetUnApprovedAgent();
+            if (newagent != null)
+            {
+                return Ok(newagent);
+            }
+            return BadRequest(new Error(4, "no unapproved agent exist"));
+        }
     }
 }

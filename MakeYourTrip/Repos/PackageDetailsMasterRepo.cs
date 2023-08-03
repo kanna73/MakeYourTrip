@@ -4,16 +4,20 @@ using MakeYourTrip.Models;
 using MakeYourTrip.Exceptions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace MakeYourTrip.Repos
 {
-    public class PackageDetailsMasterRepo : ICrud<PackageDetailsMaster, IdDTO>
+    public class PackageDetailsMasterRepo : ICrud<PackageDetailsMaster, IdDTO>, IImageRepo<PackageDetailsMaster, PlaceFormModel>
     {
         private readonly MakeYourTripContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public PackageDetailsMasterRepo(MakeYourTripContext context)
+        public PackageDetailsMasterRepo(MakeYourTripContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
         public async Task<PackageDetailsMaster?> Add(PackageDetailsMaster item)
@@ -112,6 +116,38 @@ namespace MakeYourTrip.Repos
                 throw new InvalidSqlException(ex.Message);
             }
             return null;
+        }
+
+        public async Task<PackageDetailsMaster> PostImage([FromForm] PlaceFormModel placeFormModel)
+        {
+            if (placeFormModel == null)
+            {
+                throw new ArgumentException("Invalid file");
+            }
+
+            string PlaceImagepath = await SaveImage(placeFormModel.FormFile);
+            var pack = new PackageDetailsMaster();
+            pack.PackageId = placeFormModel.PackageId;
+            pack.PlaceId=placeFormModel.PlaceId;
+            pack.DayNumber= placeFormModel.DayNumber;
+            pack.PlaceImagepath = PlaceImagepath;
+            _context.PackageDetailsMasters.Add(pack);
+            await _context.SaveChangesAsync();
+            return pack;
+        }
+
+
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot/Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
         }
 
     }

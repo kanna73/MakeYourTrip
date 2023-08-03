@@ -5,5 +5,7 @@
         public int HotelId { get; set; }
 
         public string? HotelName { get; set; }
+        public string? HotelImagepath { get; set; }
+
     }
 }

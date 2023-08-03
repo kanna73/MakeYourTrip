@@ -44,7 +44,14 @@ builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
 builder.Services.AddScoped<ICrud<RoomBooking, IdDTO>, RoomBookingRepo>();
 builder.Services.AddScoped<IPackageDetailsMasterService, PackageDetailsMasterService>();
 builder.Services.AddScoped<ICrud<PackageDetailsMaster, IdDTO>, PackageDetailsMasterRepo>();
-builder.Services.AddScoped<IImageRepo, PackageMasterRepo>();
+builder.Services.AddScoped<IImageRepo<PackageMaster, PackageFormModel>, PackageMasterRepo>();
+builder.Services.AddScoped<IImageRepo<PackageDetailsMaster, PlaceFormModel>, PackageDetailsMasterRepo>();
+builder.Services.AddScoped<IImageRepo<VehicleDetailsMaster, VehicleFormModel>, VehicleDetailsMasterRepo>();
+builder.Services.AddScoped<IImageRepo<HotelMaster, HotelFormModule>, HotelMasterRepo>();
+
+
+
+
 
 
 

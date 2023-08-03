@@ -7,5 +7,7 @@
 
         public int? NumberOfSeats { get; set; }
         public decimal? CarPrice { get; set; }
+        public string? VehicleImagepath { get; set; }
+
     }
 }

@@ -1,10 +1,11 @@
 ﻿using MakeYourTrip.Models;
+using MakeYourTrip.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MakeYourTrip.Interfaces
 {
-    public interface IImageRepo
+    public interface IImageRepo<T, K>
     {
-        Task<PackageMaster> PostPackageMasterImage([FromForm] PackageMaster packageMaster);
+        Task<T> PostImage([FromForm] K formodel);
     }
 }

@@ -13,7 +13,7 @@ namespace MakeYourTrip.Interfaces
 
         Task<PackageDTO?> Get_package_details(IdDTO id);
 
-        Task<PackageMaster> PostDashboardImage([FromForm] PackageMaster packageMaster);
+        Task<PackageMaster> PostDashboardImage([FromForm] PackageFormModel packageFormModel);
 
 
     }

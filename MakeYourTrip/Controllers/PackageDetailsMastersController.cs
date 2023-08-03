@@ -9,6 +9,7 @@ using MakeYourTrip.Models;
 using MakeYourTrip.Exceptions;
 using MakeYourTrip.Interfaces;
 using MakeYourTrip.Services;
+using MakeYourTrip.Models.DTO;
 
 namespace MakeYourTrip.Controllers
 {
@@ -61,6 +62,26 @@ namespace MakeYourTrip.Controllers
             if (myPackageDetailsMasters?.Count > 0)
                 return Ok(myPackageDetailsMasters);
             return BadRequest(new Error(10, "No PackageDetailsMaster are Existing"));
+        }
+
+
+        [ProducesResponseType(typeof(PackageDetailsMaster), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpPost]
+
+        public async Task<ActionResult<PackageDetailsMaster>> PostPlaceMaster([FromForm] PlaceFormModel placeFormModel)
+        {
+            try
+            {
+                var createdHotel = await _PackageDetailsMasterService.PostImage(placeFormModel);
+                return Ok(createdHotel);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

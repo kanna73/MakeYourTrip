@@ -9,6 +9,8 @@ namespace MakeYourTrip.Interfaces
         Task<HotelMaster?> Add_HotelMaster(HotelMaster newHotel);
         Task<List<HotelMaster>?> Get_all_HotelMaster();
         Task<HotelMaster?> View_HotelMaster(IdDTO idDTO);
+        Task<HotelMaster> PostImage([FromForm] HotelFormModule hotelFormModule);
+
 
     }
 }

@@ -75,6 +75,7 @@ public partial class MakeYourTripContext : DbContext
             entity.ToTable("HotelMaster");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.HotelImagepath).IsUnicode(false);
             entity.Property(e => e.HotelName)
                 .HasMaxLength(50)
                 .HasColumnName("hotel_name");
@@ -95,6 +96,7 @@ public partial class MakeYourTripContext : DbContext
             entity.Property(e => e.DayNumber).HasColumnName("day_number");
             entity.Property(e => e.PackageId).HasColumnName("package_id");
             entity.Property(e => e.PlaceId).HasColumnName("place_id");
+            entity.Property(e => e.PlaceImagepath).IsUnicode(false);
 
             entity.HasOne(d => d.Package).WithMany(p => p.PackageDetailsMasters)
                 .HasForeignKey(d => d.PackageId)
@@ -249,6 +251,7 @@ public partial class MakeYourTripContext : DbContext
                 .HasColumnName("car_price");
             entity.Property(e => e.PlaceId).HasColumnName("place_id");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
+            entity.Property(e => e.VehicleImagepath).IsUnicode(false);
 
             entity.HasOne(d => d.Place).WithMany(p => p.VehicleDetailsMasters)
                 .HasForeignKey(d => d.PlaceId)

@@ -132,7 +132,18 @@ namespace MakeYourTrip.Services
             }
 
             return null;
+        }
 
+        public async Task<List<User>?> GetUnApprovedAgent()
+        {
+            var users = await _userRepo.GetAll();
+            if(users != null)
+            {
+                var unApprovedAgent = users.Where(user => user.IsActive == false).ToList();
+                return unApprovedAgent;
+            }
+            return null;
+            
 
         }
     }

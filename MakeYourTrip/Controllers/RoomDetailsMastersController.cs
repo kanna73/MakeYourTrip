@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MakeYourTrip.Models;
 using MakeYourTrip.Exceptions;
 using MakeYourTrip.Interfaces;
+using MakeYourTrip.Models.DTO;
 
 namespace MakeYourTrip.Controllers
 {
@@ -59,6 +60,18 @@ namespace MakeYourTrip.Controllers
             var myRoomDetailsMasters = await _RoomDetailsMasterService.Get_all_RoomDetailsMaster();
             if (myRoomDetailsMasters?.Count > 0)
                 return Ok(myRoomDetailsMasters);
+            return BadRequest(new Error(10, "No RoomDetailsMaster are Existing"));
+        }
+
+        [ProducesResponseType(typeof(RoomDetailsMaster), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpPost]
+
+        public async Task<ActionResult<List<RoomdetailsDTO>>> getRoomDetailsByHotel(IdDTO id)
+        {
+            var myRoomdetails = await _RoomDetailsMasterService.getRoomDetailsByHotel(id);
+            if (myRoomdetails?.Count > 0)
+                return Ok(myRoomdetails);
             return BadRequest(new Error(10, "No RoomDetailsMaster are Existing"));
         }
     }

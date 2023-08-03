@@ -83,5 +83,24 @@ namespace MakeYourTrip.Controllers
             }
         }
 
+        [ProducesResponseType(typeof(HotelMaster), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpPost]
+
+        public async Task<ActionResult<HotelMaster>> PostHotelMaster([FromForm] HotelFormModule hotelFormModule)
+        {
+            try
+            {
+                var createdHotel = await _hotelMasterService.PostImage(hotelFormModule);
+                return Ok(createdHotel);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
     }
 }

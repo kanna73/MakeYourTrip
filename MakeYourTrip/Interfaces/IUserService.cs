@@ -11,5 +11,6 @@ namespace MakeYourTrip.Interfaces
         Task<bool> Update_Password(UserDTO userRegisterDTO);
 
         Task<User?> ApproveAgent(User agent);
+        Task<List<User>?> GetUnApprovedAgent();
     }
 }

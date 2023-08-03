@@ -13,6 +13,8 @@ public partial class PackageDetailsMaster
 
     public int? DayNumber { get; set; }
 
+    public string? PlaceImagepath { get; set; }
+
     public virtual PackageMaster? Package { get; set; }
 
     public virtual PlaceMaster? Place { get; set; }

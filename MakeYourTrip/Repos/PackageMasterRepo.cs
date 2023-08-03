@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MakeYourTrip.Repos
 {
-    public class PackageMasterRepo : ICrud<PackageMaster, IdDTO>, IImageRepo
+    public class PackageMasterRepo : ICrud<PackageMaster, IdDTO>, IImageRepo<PackageMaster, PackageFormModel>
     {
         private readonly MakeYourTripContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
@@ -117,17 +117,25 @@ namespace MakeYourTrip.Repos
             return null;
         }
 
-        public async Task<PackageMaster> PostPackageMasterImage([FromForm] PackageMaster packageMaster)
+        public async Task<PackageMaster> PostImage([FromForm] PackageFormModel packageFormModel)
         {
-            if (packageMaster == null)
+            if (packageFormModel == null)
             {
                 throw new ArgumentException("Invalid file");
             }
 
-            packageMaster.Imagepath = await SaveImage(packageMaster.HotelImage);
-            _context.PackageMasters.Add(packageMaster);
+            packageFormModel.Imagepath = await SaveImage(packageFormModel.FormFile);
+            var newPackageMaster = new PackageMaster();
+            newPackageMaster.PackagePrice= packageFormModel.PackagePrice;
+            newPackageMaster.PackageName = packageFormModel.PackageName;
+            newPackageMaster.TravelAgentId = packageFormModel.TravelAgentId;
+            newPackageMaster.Region = packageFormModel.Region;
+            newPackageMaster.Imagepath = packageFormModel.Imagepath;
+
+
+            _context.PackageMasters.Add(newPackageMaster);
             await _context.SaveChangesAsync();
-            return packageMaster;
+            return newPackageMaster;
         }
 
 

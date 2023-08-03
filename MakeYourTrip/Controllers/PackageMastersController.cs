@@ -102,11 +102,11 @@ namespace MakeYourTrip.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
         [HttpPost]
 
-        public async Task<ActionResult<PackageMaster>> PostDashboardImage([FromForm] PackageMaster packageMaster)
+        public async Task<ActionResult<PackageMaster>> PostPackageMasterImage([FromForm] PackageFormModel packageFormModel)
         {
             try
             {
-                var createdHotel = await _PackageMasterService.PostDashboardImage(packageMaster);
+                var createdHotel = await _PackageMasterService.PostDashboardImage(packageFormModel);
                 return Ok(createdHotel);
 
             }

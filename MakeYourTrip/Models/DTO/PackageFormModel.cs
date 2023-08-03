@@ -1,7 +1,9 @@
 ﻿namespace MakeYourTrip.Models.DTO
 {
-    public class PackageDTO
+    public class PackageFormModel
     {
+        public int Id { get; set; }
+
         public decimal? PackagePrice { get; set; }
 
         public string? PackageName { get; set; }
@@ -11,13 +13,6 @@
         public string? Region { get; set; }
 
         public string? Imagepath { get; set; }
-
-
-        public List<PlaceDTO>? placeList { get; set; }
-
-
-
-
-
+        public IFormFile? FormFile { get; set; }
     }
 }
