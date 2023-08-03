@@ -112,6 +112,7 @@ public partial class MakeYourTripContext : DbContext
             entity.ToTable("PackageMaster");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Imagepath).IsUnicode(false);
             entity.Property(e => e.PackageName)
                 .HasMaxLength(50)
                 .HasColumnName("package_name");

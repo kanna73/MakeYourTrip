@@ -83,5 +83,39 @@ namespace MakeYourTrip.Controllers
             }
         }
 
+        [ProducesResponseType(typeof(PackageDTO), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpPost]
+
+        public async Task<ActionResult<PackageDTO>> Get_package_details(IdDTO id)
+        {
+            var result = await _PackageMasterService.Get_package_details(id);
+            if(result!= null)
+            {
+                return Ok(result);
+            }
+            return BadRequest(new Error(9, $"There is no PackageMaster present for the id {id.IdInt}"));
+
+        }
+
+        [ProducesResponseType(typeof(PackageMaster), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpPost]
+
+        public async Task<ActionResult<PackageMaster>> PostDashboardImage([FromForm] PackageMaster packageMaster)
+        {
+            try
+            {
+                var createdHotel = await _PackageMasterService.PostDashboardImage(packageMaster);
+                return Ok(createdHotel);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
     }
 }

@@ -42,7 +42,11 @@ builder.Services.AddScoped<IVehicleBookingService, VehicleBookingService>();
 builder.Services.AddScoped<ICrud<VehicleBooking, IdDTO>, VehicleBookingRepo>();
 builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
 builder.Services.AddScoped<ICrud<RoomBooking, IdDTO>, RoomBookingRepo>();
-  
+builder.Services.AddScoped<IPackageDetailsMasterService, PackageDetailsMasterService>();
+builder.Services.AddScoped<ICrud<PackageDetailsMaster, IdDTO>, PackageDetailsMasterRepo>();
+builder.Services.AddScoped<IImageRepo, PackageMasterRepo>();
+
+
 
 
 

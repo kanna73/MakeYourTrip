@@ -1,6 +1,6 @@
 ﻿namespace MakeYourTrip.Models.DTO
 {
-    public class VechileDTO
+    public class VehicleDTO
     {
         public int? VehicleDetailsId { get; set; }
         public string? VehicleName { get; set; }
