@@ -146,5 +146,15 @@ namespace MakeYourTrip.Services
             
 
         }
+
+        public async Task<User?> DeleteAgent(UserDTO user)
+        {
+            var deleteduser = await _userRepo.Delete(user);
+            if (deleteduser != null)
+            {
+                return deleteduser;
+            }
+            return null;
+        }
     }
 }

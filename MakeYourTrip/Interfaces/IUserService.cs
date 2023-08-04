@@ -12,5 +12,7 @@ namespace MakeYourTrip.Interfaces
 
         Task<User?> ApproveAgent(User agent);
         Task<List<User>?> GetUnApprovedAgent();
+
+        Task<User?> DeleteAgent(UserDTO user);
     }
 }

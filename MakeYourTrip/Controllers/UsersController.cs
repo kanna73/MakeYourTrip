@@ -142,5 +142,19 @@ namespace MakeYourTrip.Controllers
             }
             return BadRequest(new Error(4, "no unapproved agent exist"));
         }
+
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]//Success Response
+        [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
+        [HttpDelete]
+
+        public async Task<ActionResult<User>> DeleteAgent(UserDTO user)
+        {
+            var deletedagent =await _userService.DeleteAgent(user);
+            if (deletedagent != null)
+            {
+                return Ok(deletedagent);
+            }
+            return BadRequest(new Error(4, "no  agent exist"));
+        }
     }
 }
