@@ -15,6 +15,8 @@ public partial class PackageDetailsMaster
 
     public string? PlaceImagepath { get; set; }
 
+    public string? Itinerary { get; set; }
+
     public virtual PackageMaster? Package { get; set; }
 
     public virtual PlaceMaster? Place { get; set; }

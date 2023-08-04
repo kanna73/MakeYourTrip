@@ -25,6 +25,8 @@ public partial class MakeYourTripContext : DbContext
 
     public virtual DbSet<PlaceMaster> PlaceMasters { get; set; }
 
+    public virtual DbSet<PostGallery> PostGalleries { get; set; }
+
     public virtual DbSet<RoomBooking> RoomBookings { get; set; }
 
     public virtual DbSet<RoomDetailsMaster> RoomDetailsMasters { get; set; }
@@ -41,7 +43,7 @@ public partial class MakeYourTripContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("data source = .\\SQLEXPRESS; initial catalog = MakeYourTrip; integrated security=SSPI;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("data source = .\\SQLEXPRESS; initial catalog = MakeYourTrip;integrated security=SSPI;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -94,6 +96,7 @@ public partial class MakeYourTripContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DayNumber).HasColumnName("day_number");
+            entity.Property(e => e.Itinerary).IsUnicode(false);
             entity.Property(e => e.PackageId).HasColumnName("package_id");
             entity.Property(e => e.PlaceId).HasColumnName("place_id");
             entity.Property(e => e.PlaceImagepath).IsUnicode(false);
@@ -139,6 +142,27 @@ public partial class MakeYourTripContext : DbContext
             entity.Property(e => e.PlaceName)
                 .HasMaxLength(50)
                 .HasColumnName("place_name");
+        });
+
+        modelBuilder.Entity<PostGallery>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__PostGall__3213E83F80541D78");
+
+            entity.ToTable("PostGallery");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AdminId).HasColumnName("admin_id");
+            entity.Property(e => e.Adminimage)
+                .IsUnicode(false)
+                .HasColumnName("adminimage");
+            entity.Property(e => e.ImageType)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("image_type");
+
+            entity.HasOne(d => d.Admin).WithMany(p => p.PostGalleries)
+                .HasForeignKey(d => d.AdminId)
+                .HasConstraintName("FK__PostGalle__admin__70DDC3D8");
         });
 
         modelBuilder.Entity<RoomBooking>(entity =>

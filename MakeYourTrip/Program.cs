@@ -48,6 +48,10 @@ builder.Services.AddScoped<IImageRepo<PackageMaster, PackageFormModel>, PackageM
 builder.Services.AddScoped<IImageRepo<PackageDetailsMaster, PlaceFormModel>, PackageDetailsMasterRepo>();
 builder.Services.AddScoped<IImageRepo<VehicleDetailsMaster, VehicleFormModel>, VehicleDetailsMasterRepo>();
 builder.Services.AddScoped<IImageRepo<HotelMaster, HotelFormModule>, HotelMasterRepo>();
+builder.Services.AddScoped<IPostGalleryService, PostGalleryService>();
+builder.Services.AddScoped<ICrud<PostGallery, IdDTO>, PostGalleryRepo>();
+builder.Services.AddScoped<IImageRepo<PostGallery, PostGalleryFormModule>, PostGalleryRepo>();
+
 
 
 
