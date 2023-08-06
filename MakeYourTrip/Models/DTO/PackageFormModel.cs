@@ -11,6 +11,8 @@
         public int? TravelAgentId { get; set; }
 
         public string? Region { get; set; }
+        public int? Duration { get; set; }
+
 
         public string? Imagepath { get; set; }
         public IFormFile? FormFile { get; set; }

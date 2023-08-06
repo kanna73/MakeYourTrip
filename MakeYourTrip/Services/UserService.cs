@@ -30,6 +30,7 @@ namespace MakeYourTrip.Services
                 {
                     return null;
                 }
+
                 var hmac = new HMACSHA512(userData.Hashkey);
                 var userPass = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
                 for (int i = 0; i < userPass.Length; i++)
@@ -58,6 +59,10 @@ namespace MakeYourTrip.Services
                 if(userRegisterDTO.Role== "Agent")
                 {
                     userRegisterDTO.IsActive = false;
+                }
+                else
+                {
+                    userRegisterDTO.IsActive = true;
                 }
                 var resultUser = await _userRepo.Add(userRegisterDTO);
                 if (resultUser != null)

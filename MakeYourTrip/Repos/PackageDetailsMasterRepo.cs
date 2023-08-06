@@ -124,12 +124,17 @@ namespace MakeYourTrip.Repos
             {
                 throw new ArgumentException("Invalid file");
             }
+            if(placeFormModel.FormFile == null)
+            {
+                return null;
+            }
 
             string PlaceImagepath = await SaveImage(placeFormModel.FormFile);
             var pack = new PackageDetailsMaster();
             pack.PackageId = placeFormModel.PackageId;
             pack.PlaceId=placeFormModel.PlaceId;
             pack.DayNumber= placeFormModel.DayNumber;
+            pack.Itinerary= placeFormModel.Itinerary;
             pack.PlaceImagepath = PlaceImagepath;
             _context.PackageDetailsMasters.Add(pack);
             await _context.SaveChangesAsync();

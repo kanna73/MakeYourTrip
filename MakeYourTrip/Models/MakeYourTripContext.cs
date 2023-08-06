@@ -56,6 +56,9 @@ public partial class MakeYourTripContext : DbContext
                 .HasMaxLength(500)
                 .HasColumnName("feedback");
             entity.Property(e => e.PackageMasterId).HasColumnName("package_master_id");
+            entity.Property(e => e.Startdate)
+                .HasColumnType("date")
+                .HasColumnName("startdate");
             entity.Property(e => e.TotalAmount)
                 .HasColumnType("money")
                 .HasColumnName("total_amount");
@@ -117,6 +120,7 @@ public partial class MakeYourTripContext : DbContext
             entity.ToTable("PackageMaster");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Duration).HasColumnName("duration");
             entity.Property(e => e.Imagepath).IsUnicode(false);
             entity.Property(e => e.PackageName)
                 .HasMaxLength(50)

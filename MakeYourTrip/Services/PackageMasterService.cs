@@ -68,6 +68,7 @@ namespace MakeYourTrip.Services
                     PackagePrice = image.PackagePrice,
                     PackageName = image.PackageName,
                     TravelAgentId = image.TravelAgentId,
+                    Duration= image.Duration,
                     Region = image.Region,
 
                     Imagepath = Convert.ToBase64String(imageBytes)

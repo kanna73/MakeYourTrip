@@ -17,6 +17,8 @@ public partial class PackageMaster
 
     public string? Imagepath { get; set; }
 
+    public int? Duration { get; set; }
+
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<PackageDetailsMaster> PackageDetailsMasters { get; set; } = new List<PackageDetailsMaster>();
