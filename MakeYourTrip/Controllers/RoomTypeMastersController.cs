@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MakeYourTrip.Models;
 using MakeYourTrip.Interfaces;
+using MakeYourTrip.Exceptions;
 
 namespace MakeYourTrip.Controllers
 {
@@ -27,23 +28,19 @@ namespace MakeYourTrip.Controllers
         [HttpPost]
         public async Task<ActionResult<RoomTypeMaster>> Add_RoomTypeMaster(RoomTypeMaster newplace)
         {
-            /* try
-             {*/
-            /* if (additionalCategoryMaster.Id <=0)
-                 throw new InvalidPrimaryID();*/
+             try
+             {
+           
             var myRoomTypeMaster = await _RoomTypeMasterService.Add_RoomTypeMaster(newplace);
             if (myRoomTypeMaster != null)
                 return Created("RoomTypeMaster created Successfully", myRoomTypeMaster);
             return BadRequest(new Error(1, $"RoomTypeMaster {newplace.Id} is Present already"));
-            /*}
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
             }
+            
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));
-            }*/
+            }
         }
 
         [ProducesResponseType(typeof(RoomTypeMaster), StatusCodes.Status200OK)]//Success Response

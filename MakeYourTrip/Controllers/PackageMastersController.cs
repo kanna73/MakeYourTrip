@@ -31,23 +31,19 @@ namespace MakeYourTrip.Controllers
         [HttpPost]
         public async Task<ActionResult<PackageMaster>> Add_PackageMaster(PackageMaster newplace)
         {
-            /* try
-             {*/
-            /* if (additionalCategoryMaster.Id <=0)
-                 throw new InvalidPrimaryID();*/
+             try
+             {
+            
             var myPackageMaster = await _PackageMasterService.Add_PackageMaster(newplace);
             if (myPackageMaster != null)
                 return Created("PackageMaster created Successfully", myPackageMaster);
             return BadRequest(new Error(1, $"PackageMaster {newplace.Id} is Present already"));
-            /*}
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
             }
+           
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));
-            }*/
+            }
         }
 
         [ProducesResponseType(typeof(PackageMaster), StatusCodes.Status200OK)]//Success Response

@@ -30,23 +30,19 @@ namespace MakeYourTrip.Controllers
         [HttpPost]
         public async Task<ActionResult<PlaceMaster>> Add_PlaceMaster(PlaceMaster newplace)
         {
-           /* try
-            {*/
-                /* if (additionalCategoryMaster.Id <=0)
-                     throw new InvalidPrimaryID();*/
+           try
+            {
+               
                 var myPlaceMaster = await _placeMasterService.Add_PlaceMaster(newplace);
                 if (myPlaceMaster != null)
                     return Created("AdditionalCategoryMaster created Successfully", myPlaceMaster);
                 return BadRequest(new Error(1, $"AdditionalCategoryMaster {newplace.Id} is Present already"));
-            /*}
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
             }
+           
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));
-            }*/
+            }
         }
 
         [ProducesResponseType(typeof(PlaceMaster), StatusCodes.Status200OK)]//Success Response

@@ -30,23 +30,19 @@ namespace MakeYourTrip.Controllers
         [HttpPost]
         public async Task<ActionResult<HotelMaster>> Add_HotelMaster(HotelMaster newHotel)
         {
-            /* try
-             {*/
-            /* if (HotelMaster.Id <=0)
-                 throw new InvalidPrimaryID();*/
+             try
+             {
+           
             var myHotelMaster = await _hotelMasterService.Add_HotelMaster(newHotel);
             if (myHotelMaster != null)
                 return Created("HotelMaster created Successfully", myHotelMaster);
             return BadRequest(new Error(1, $"HotelMaster {newHotel.Id} is Present already"));
-            /*}
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
             }
+            
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));
-            }*/
+            }
         }
 
 

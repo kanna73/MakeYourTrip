@@ -10,11 +10,16 @@ using MakeYourTrip.Exceptions;
 using MakeYourTrip.Interfaces;
 using MakeYourTrip.Models.DTO;
 using MakeYourTrip.Services;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace MakeYourTrip.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [EnableCors("AngularCORS")]
+
     public class PostGalleriesController : ControllerBase
     {
         private readonly IPostGalleryService _PostGalleryService;
@@ -30,23 +35,19 @@ namespace MakeYourTrip.Controllers
         [HttpPost]
         public async Task<ActionResult<PostGallery>> Add_PostGallery(PostGallery newplace)
         {
-            /* try
-             {*/
-            /* if (additionalCategoryMaster.Id <=0)
-                 throw new InvalidPrimaryID();*/
+            try
+             {
+            
             var myPostGallery = await _PostGalleryService.Add_PostGallery(newplace);
             if (myPostGallery != null)
                 return Created("PostGallery created Successfully", myPostGallery);
             return BadRequest(new Error(1, $"PostGallery {newplace.Id} is Present already"));
-            /*}
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
             }
+            
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));
-            }*/
+            }
         }
 
         [ProducesResponseType(typeof(PostGallery), StatusCodes.Status200OK)]//Success Response
@@ -82,6 +83,7 @@ namespace MakeYourTrip.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(PostGallery), StatusCodes.Status200OK)]//Success Response
         [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
         [HttpPost]

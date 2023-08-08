@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Cors;
 using MakeYourTrip.Exceptions;
 using MakeYourTrip.Interfaces;
 using MakeYourTrip.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MakeYourTrip.Controllers
 {
@@ -36,10 +37,7 @@ namespace MakeYourTrip.Controllers
                     return BadRequest(new Error(2, "Registration Not Successful"));
                 return Created("User Registered", user);
             }
-            catch (InvalidSqlException ise)
-            {
-                return BadRequest(new Error(3, ise.Message));
-            }
+            
             catch (Exception ex)
             {
                 return BadRequest(new Error(4, ex.Message));
@@ -113,6 +111,7 @@ namespace MakeYourTrip.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]//Success Response
         [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
         [HttpPut]
@@ -129,6 +128,7 @@ namespace MakeYourTrip.Controllers
            
         }
 
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]//Success Response
         [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
         [HttpGet]
@@ -143,6 +143,7 @@ namespace MakeYourTrip.Controllers
             return BadRequest(new Error(4, "no unapproved agent exist"));
         }
 
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]//Success Response
         [ProducesResponseType(StatusCodes.Status404NotFound)]//Failure Response
         [HttpDelete]

@@ -29,23 +29,19 @@ namespace MakeYourTrip.Controllers
         [HttpPost]
         public async Task<ActionResult<RoomBooking>> Add_RoomBooking(RoomBooking newHotel)
         {
-            /* try
-             {*/
-            /* if (RoomBooking.Id <=0)
-                 throw new InvalidPrimaryID();*/
+             try
+             {
+            
             var myRoomBooking = await _RoomBookingService.Add_RoomBooking(newHotel);
             if (myRoomBooking != null)
                 return Created("RoomBooking created Successfully", myRoomBooking);
             return BadRequest(new Error(1, $"RoomBooking {newHotel.Id} is Present already"));
-            /*}
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
             }
+            
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));
-            }*/
+            }
         }
 
 

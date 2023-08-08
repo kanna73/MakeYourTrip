@@ -30,23 +30,19 @@ namespace MakeYourTrip.Controllers
         [HttpPost]
         public async Task<ActionResult<VehicleMaster>> Add_VehicleMaster(VehicleMaster newplace)
         {
-            /* try
-             {*/
-            /* if (additionalCategoryMaster.Id <=0)
-                 throw new InvalidPrimaryID();*/
+            try
+             {
+           
             var myVehicleMaster = await _VehicleMasterService.Add_VehicleMaster(newplace);
             if (myVehicleMaster != null)
                 return Created("VehicleMaster created Successfully", myVehicleMaster);
             return BadRequest(new Error(1, $"VehicleMaster {newplace.Id} is Present already"));
-            /*}
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
             }
+            
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));
-            }*/
+            }
         }
 
         [ProducesResponseType(typeof(VehicleMaster), StatusCodes.Status200OK)]//Success Response

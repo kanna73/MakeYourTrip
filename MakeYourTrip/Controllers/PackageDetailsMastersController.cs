@@ -41,10 +41,7 @@ namespace MakeYourTrip.Controllers
 
                 return BadRequest(new Error(1, "No PackageDetailsMaster were added."));
             }
-            catch (InvalidPrimaryID ip)
-            {
-                return BadRequest(new Error(2, ip.Message));
-            }
+            
             catch (InvalidSqlException ise)
             {
                 return BadRequest(new Error(25, ise.Message));

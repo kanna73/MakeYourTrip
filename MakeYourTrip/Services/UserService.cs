@@ -39,6 +39,7 @@ namespace MakeYourTrip.Services
                         return null;
                 }
                 user = new UserDTO();
+                user.Id = userData.Id;
                 user.Username = userData.Username;
                 user.Role = userData.Role;
                 user.Token = _tokenService.GenerateToken(user);
